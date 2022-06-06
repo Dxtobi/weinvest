@@ -18,9 +18,9 @@ connectDatabase();
 // middleware that allow us to get the data from the body
 app.use(express.json());
 
-//if (process.env.NODE_ENV === 'production') {
-  //app.use(express.static(path.join(__dirname, 'client/build')))
-//}
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')))
+}
 
 app.use("/api/auth", redirect);
 app.use("/api/private-route", privateRouteRedirect);
@@ -31,9 +31,7 @@ app.use(errorResponse);
 const PORT = process.env.PORT || 4000;
 
 
-//if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'))
-//}
+
 const serverListeningPort = app.listen(PORT, () => {
   console.log(`Currently server is running at port ${PORT}`);
 });
