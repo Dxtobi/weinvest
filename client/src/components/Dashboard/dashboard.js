@@ -15,6 +15,7 @@ const Dashboard = () => {
     const [withdraw, setWithdraw] = useState(false);
 
     useEffect(() => {
+        console.log(window.location.href)
         const token = localStorage.getItem("authToken")
         async function getUserData()
         {
