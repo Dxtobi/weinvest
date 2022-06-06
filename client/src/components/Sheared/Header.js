@@ -51,7 +51,7 @@ const Header = () => {
   }
   return (
       <div className="header_top">
-        <span className="header_top_brand">Iinvest</span>
+        <span className="header_top_brand">Weinvestbtc</span>
         <button onClick={()=>showMenu(!menunav)} className='menu-header-btn'><CgMenuRight size={25} /></button>
       {menunav && error?<Navemenu1 logout={handleOnClick} showMenu={toggle}/>:menunav && !error &&<Navemenu logout={handleOnClick} showMenu={toggle}/>}
       </div>
