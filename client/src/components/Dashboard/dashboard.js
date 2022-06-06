@@ -29,7 +29,9 @@ const Dashboard = () => {
                 "/api/auth/get_my_details",
                 config
             );
+            
             if (data) {
+                console.log('--',data, '--')
                 setDbdata(data.data)
                 setLoading(false)
             }
