@@ -49,11 +49,11 @@ const Dashboard = () => {
    let pst = 0
 
     if(dbdata.plan==='Gold') {
-        pst = (70/100)*dbdata.ballance
+        pst = (70*dbdata.ballance)/100
     } else if (dbdata.plan==='Silver') {
-        pst = (50/100)*dbdata.ballance
+        pst = (50*dbdata.ballance)/100
     } else if (dbdata.plan==='Bronze'){
-        pst = (40/100)*dbdata.ballance
+        pst = (40*dbdata.ballance)/100
     }
     else{
         pst = 0
@@ -82,7 +82,7 @@ const Dashboard = () => {
                       </div>
                       <div>
                         <div className="d-to-sec-bott-c-s">Interest</div>
-                        <div className="d-to-sec-bott-c">${pst}0</div>
+                        <div className="d-to-sec-bott-c">${pst}.0</div>
                       </div>
                       
                 </div>
