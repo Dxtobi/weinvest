@@ -9,6 +9,7 @@ import Dashboard from "./components/Dashboard";
 
 import Private from "./components/routing/Private.js";
 import Header from "./components/Sheared/Header";
+import Verifiy from "./components/Sheared/Confirmed";
 import Plans from "./components/Dashboard/Plans";
 import Adm from "./components/Adm";
 
@@ -23,7 +24,7 @@ function App() {
         <Route exact path="/" component={PrivateRoute} />
         <Private exact path="/dashboard" component={Dashboard} />
         <Private exact path="/adm" component={Adm} />
-        
+        <Private exact path="/verified-email-code/verified-code-green-code/m1" component={Verifiy} />
         <Route exact path="/plans" component={Plans} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />

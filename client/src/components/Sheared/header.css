@@ -180,8 +180,15 @@ img.img-f {
 
 
 
-
-
+.confirmed {
+    display: flex;
+    height: 70vh;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+}
 
 
 

