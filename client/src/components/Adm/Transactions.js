@@ -128,7 +128,8 @@ const handleSubmit = async (uid, amt, id) => {
     return (
         <div style={{marginBottom:30}}>
             <div  className="adm-confirm-menu">
-                <div>{user.plan}</div>
+          <div>{user.plan}</div>
+          <div>{user.email}</div>
                 <div>${ user.ballance}</div>
             </div>
             <div style={{borderColor:'red'}} className="db-trans-i">
@@ -153,12 +154,13 @@ const handleSubmit = async (uid, amt, id) => {
                     onClick={() => handleSubmit(user._id, amount, _id, type)}
                     style={{ background: '#009300'  }}
                     className="adm-confirm-button"
-                    >Confirm</button>:
+                    >Confirm</button> :
                     <button
                     onClick={() => handleSubmit(user._id, amount, _id, type)}
                     style={{ background: uptodate > 47 ? '#009300' : 'gray' }}
                     className="adm-confirm-button"
-                    disabled={uptodate < 48 ? true : false}>Confirm</button>}
+                    disabled={uptodate < 48 ? true : false}>Confirm</button>
+                }
                 <button  onClick={() => failedTransaction(user._id, amount, _id, type)}   style={{background:'#ff0000d9'}} className="adm-confirm-button">Delete</button>
             </div>
         </div>

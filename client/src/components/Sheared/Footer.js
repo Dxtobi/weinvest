@@ -49,7 +49,7 @@ export default function Footer() {
         <a href='https://t.me/weinvestbitcoin' target='_blank' rel="noreferrer" className='footer_soc_a'><FaTelegramPlane/></a>
       </div>
 
-      
+
       <div className='footer_copy'>
         <p>
           Copyright Weinvestbtc Saving and Investment Limited. 
