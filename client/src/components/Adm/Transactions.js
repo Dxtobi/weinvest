@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import {BsArrowRepeat} from 'react-icons/bs'
 import axios from "axios";
+
+
 const Dashboard = ({type, date, amount, status, address, user, _id}) => {
    
+  const [uptodate, setDate]=useState(0)
+ 
+  const end = new Date()
+  const day = end.getDate()
+  const month = end.getMonth()
+  const year =end.getFullYear()
+  const stdate = `${day}/${month}/${year}`
+  
 const dt = new Date(date)
 const y = dt.getFullYear()
 const m = dt.getMonth()
 const w = dt.getDay()
-const d = dt.getDate()
+  const d = dt.getDate()
+  const h = dt.getHours()
+const mt = dt.getMinutes()
+const lds = `${d}/${m}/${y}`
+
+
 const mnt = [
     'JEN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
     'JUL','AUG','SEP','OCT','NOV','DEC'
@@ -15,7 +30,27 @@ const mnt = [
 const week = [
     'Sun', 'Mon', 'Tus', 'Wed', 'Thus', 'Fri',
     'Sat',
-]
+  ]
+ 
+function getNumberOfDays(start, end) {
+  const date1 = new Date(start);
+  const date2 = new Date(end);
+
+  // One day in milliseconds
+  const oneDay = 1000 * 60 * 60 * 48;
+
+  //console.log(date2.getTime(),'----', date1.getTime())
+  // Calculating the time difference between two dates
+  const diffInTime = date2.getTime() - date1.getTime();
+  console.log(oneDay, date2, diffInTime)
+  // Calculating the no. of days between two dates
+  const diffInDays = Math.round(diffInTime / oneDay);
+  
+  return diffInDays;
+}
+useEffect(() => {
+  setDate(getNumberOfDays(lds, stdate)) 
+},[lds, stdate])
 const handleSubmit = async (uid, amt, id) => {
          
     
@@ -104,7 +139,7 @@ const handleSubmit = async (uid, amt, id) => {
                         {type}
                       </div>
                       <div className="db-trans-i-l-d">
-                  {status} {d} {week[w]} {mnt[m]} {y}
+                      {status} {d} {week[w]} {mnt[m]} {y}--{h}:{mt}
                       </div>
                   </div>
               </div>
@@ -114,10 +149,16 @@ const handleSubmit = async (uid, amt, id) => {
             </div>
             {address&&<div  className="db-btc_address">{address}</div>}
             <div className="adm-confirm-menu">
-                <button
+                {type==='Deposit'?<button
                     onClick={() => handleSubmit(user._id, amount, _id, type)}
-                    
-                    style={{ background: '#009300' }} className="adm-confirm-button">Confirm</button>
+                    style={{ background: '#009300'  }}
+                    className="adm-confirm-button"
+                    >Confirm</button>:
+                    <button
+                    onClick={() => handleSubmit(user._id, amount, _id, type)}
+                    style={{ background: uptodate > 47 ? '#009300' : 'gray' }}
+                    className="adm-confirm-button"
+                    disabled={uptodate < 48 ? true : false}>Confirm</button>}
                 <button  onClick={() => failedTransaction(user._id, amount, _id, type)}   style={{background:'#ff0000d9'}} className="adm-confirm-button">Delete</button>
             </div>
         </div>

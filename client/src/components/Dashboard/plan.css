@@ -185,6 +185,8 @@
     text-align: center;
     margin: 10px 0;
   }
+
+  
   .card-footer button {
     border: 1px solid var(--color-btn);
     border-radius: 5px;
@@ -193,7 +195,49 @@
     font-size: 12px;
     background: transparent;
   }
+  .verified_ {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background-color: white;
+    box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.253);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
 
+.Not-verified {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.style_txt {
+  font-size: x-large;
+}
+
+.style_btn {
+  width: 60%;
+  padding: 10px;
+  border-radius: 30px;
+  border: 2px solid;
+}
+
+.style_btn:hover {
+  width: 60%;
+  padding: 10px;
+  border-radius: 30px;
+  border: 2px solid;
+  background-color: #000;
+  color: #ffffff;
+}
   @media screen 
 and (min-device-width: 1200px) 
 and (max-device-width: 1600px) 

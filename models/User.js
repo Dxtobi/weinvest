@@ -41,10 +41,19 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default:10
   },
+  verified: {
+   type: Boolean,
+   default:false
+  },
+  lastTransfer: {
+    type: Date,
+    default: Date.now
+    
+   },
   plan: {
     type: String,
     default:'No Plans'
- },
+  },
   resetPasswordToken: String,
   resetPassowrdExpire: Date,
 });

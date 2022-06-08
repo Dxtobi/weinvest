@@ -1,21 +1,18 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config()
+
 const sendEmail = (options) => {
-
-
-
   let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    service:"gmail",
+    host: "mail.privateemail.com",
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: 'weinvestbtccare@gmail.com', //process.env.EMAIL,// generated ethereal user
-      pass:'xbcbriclozpdyhnx'// process.env.PASSWORD, // generated ethereal password
+      user: 'support@weinvestbtc.com', //process.env.EMAIL,// generated ethereal user
+      pass:'1Connected.'// process.env.PASSWORD, // generated ethereal password
     },
   });
   let details = {
-    from:'weinvestbtccare@gmail.com',//process.env.EMAIL,
+    from:'support@weinvestbtc.com',//process.env.EMAIL,
     to: options.to,
     subject:  options.subject,
     html:  options.text,
@@ -26,35 +23,13 @@ const sendEmail = (options) => {
      // console.log(err)
       return
     } else {
-     
+      return
       console.log('sent', err)
      // return navigate("/error");
     }
   })
   
- /* const transporter = nodemailer.createTransport({
-    service: process.env.EMAIL_SERVICE_PROVIDER,
-    auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
-  const mailOptions = {
-    from: process.env.EMAIL_FROM,
-    to: options.to,
-    subject: options.subject,
-    html: options.text,
-  };*/
- /* transporter.sendMail(mailOptions, function (err, info) {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log(info);
-    }
-  });*/
+ 
 };
 
 

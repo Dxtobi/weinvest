@@ -5,7 +5,7 @@ import Loader from "../Sheared/Loader";
 import Transaction from "./Transactions";
 import Deposite from "./Deposite";
 import Withdraw from "./Withdraw";
-
+import NotVerified from "./NotVerified";
 //console.log(token)
 
 const Dashboard = () => {
@@ -29,7 +29,6 @@ const Dashboard = () => {
                 "/api/auth/get_my_details",
                 config
             );
-            
             if (data) {
                 console.log('--',data, '--')
                 setDbdata(data.data)
@@ -61,8 +60,14 @@ const Dashboard = () => {
 
     if (loading) {
        // console.log('loading')
-    return <Loader/>
-}
+        return <Loader />
+
+    }
+    if (!dbdata.verified) {
+        // console.log('loading')
+        return <NotVerified />
+
+     }
   return (
       <div className="dashboard">
           {deposit && <Deposite setDeposit={setDeposit} btcadd={dbdata.btcAdd} />}
@@ -106,6 +111,7 @@ const Dashboard = () => {
                           type={e.type}
                           amount={e.amount}
                           status={e.status}
+                          last={e.user.lastTransfer}
                       />
                 })
               }

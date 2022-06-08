@@ -17,8 +17,9 @@ button.adm-confirm-button {
 }
 .Adm {
     padding: 20px 0px;
+    width: 90%;
+    margin: auto;
 }
-
 .password-adm {
     display: flex;
     flex-direction: column;

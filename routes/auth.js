@@ -12,7 +12,9 @@ const {
   make_withdraw,
   get_all_transaction_details,
   confirm_transaction,
-  failed_transaction
+  failed_transaction,
+  verify_mail,
+  resend_mail,
 } = require("../controllers/auth.js");
 
 // setting up register route
@@ -33,7 +35,8 @@ router.route("/make_withdraw").post(make_withdraw);
 router.route("/get_all_transaction_details").get(get_all_transaction_details);
 router.route("/confirm_transaction").post(confirm_transaction);
 router.route("/failed_transaction").post(failed_transaction);
-
+router.route("/verify_mail").get(verify_mail);
+router.route("/resend_mail").get(resend_mail);
 //get_all_transaction_details
 //make_transfer
 module.exports = router;

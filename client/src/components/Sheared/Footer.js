@@ -13,7 +13,7 @@ export default function Footer() {
     },
     {
       header: "e-Mail",
-      text:"weinvestbtccare@gmail.com"
+      text:"support@weinvestbtc.com"
     },
   ]
   const naves = [

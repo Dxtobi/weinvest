@@ -267,6 +267,7 @@ exports.getmydetails = async (req, res, next) => {
     ) {
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
+      console.log(decoded)
       const user = await User.findById(decoded.id);
       const trans = await Transaction.find({user:decoded.id});
       const data = {
@@ -307,7 +308,7 @@ exports.set_subscription_plan = async (req, res, next) => {
 
 exports.make_transaction = async (req, res, next) => {
   let token
-  console.log(11111, req.body)
+  //console.log(11111, req.body)
   try {
     if (
       req.headers.authorization &&
@@ -315,7 +316,10 @@ exports.make_transaction = async (req, res, next) => {
     ) {
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
-     const user = await User.findById(decoded.id);
+      const user = await User.findById(decoded.id);
+      const dt = new Date()
+      user.lastTransfer = dt
+      user.save().then(e=>console.log(e));
       Transaction.create({
         user: decoded.id,
         amount: req.body.amount,
@@ -472,8 +476,6 @@ exports.make_withdraw = async (req, res, next) => {
   }
 };
 
-
-
 exports.get_all_transaction_details = async (req, res, next) => {
   let token
  // console.log(11111, req.body.plan)
@@ -572,7 +574,6 @@ exports.confirm_transaction = async (req, res, next) => {
   }
 };
 
-
 exports.failed_transaction = async (req, res, next) => {
   let token
  // console.log(11111, req.body.plan)
@@ -644,6 +645,122 @@ exports.failed_transaction = async (req, res, next) => {
                   return res.status(200).json({ token });
                 });
               //console.log('don', user)
+  }
+  } catch (e) {
+    console.log(e.message)
+    return res.status(400).json({ message:'refresh' });
+  }
+};
+
+exports.verify_mail = async (req, res, next) => {
+  let token
+  console.log(11111,  req.headers.authorization)
+  try {
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      console.log(2222)
+      token = req.headers.authorization.split(" ")[1];
+      const decoded = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
+      console.log(decoded)
+      await User.findByIdAndUpdate(decoded.id, { $set: { verified: true } }, { useFindAndModify: false });
+      console.log('done')
+      
+      return res.status(200).json({ message: 'done' });
+  
+     
+    }
+  } catch (e) {
+    console.log(e.message)
+    return res.status(400).json({ message:'refresh' });
+  }
+};
+
+exports.resend_mail = async (req, res, next) => {
+  let token
+  console.log(11111,'-------')
+  try {
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+      const decoded = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
+      const u = await User.findOne({ _id: decoded.id });
+
+      const resetUrl= process.env.RESET_URL_LINK
+      const message = `
+      <table cellspacing="0" border="0" cellpadding="0" width="100%" height:"100%" style="@import url(https://fonts.googleapis.com/css?family=poppins:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
+        <tr>
+          <td>
+            <table style="background-color: white; max-width:100vh;  margin:0 auto;" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="height:80px;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">
+                </td>
+              </tr>
+              <tr>
+                <td style="height:20px;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td>
+                  <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" style="max-width:670px;background:#fff; border-radius:25px; text-align:center;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(100,100,100,.16);box-shadow:0 6px 18px 0 rgba(100,100,100,1);">
+                    <tr>
+                      <td style="height:40px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0 35px;">
+                        <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'poppins',sans-serif;">Welcome to ${ process.env.SITENAME}</h1>
+                        <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
+                        <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
+                         <h2>Please Verify Your email</h2>
+                         <div>Only verified emails are allowed to deposits and withdraw</h2>
+                        </p>
+                        <a href="${resetUrl}"
+                         style="background:#20e277;
+                         text-decoration:none !important;
+                          font-weight:500;
+                           margin-top:35px;
+                            color:#fff;
+                            text-transform:uppercase;
+                             font-size:14px;
+                             padding:10px 24px;
+                             display:inline-block;
+                             border-radius:50px;">Verify Email</a>
+                          <p>
+                          If the button is not working click here
+                          <p>
+                          <br/>
+                          <a href="${resetUrl}" clicktracking=off>${resetUrl}</a>
+                          
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height:40px;">&nbsp;</td>
+                    </tr>
+                  </table>
+                </td>
+              <tr>
+                <td style="height:20px;">&nbsp;</td>
+              </tr>
+              <tr>
+          
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+        `;
+          await sendEmail({
+            to: u.email,
+            subject: "Email Verification",
+            text: message,
+          });
+
+      return res.status(200).json({ message:'sent' });
   }
   } catch (e) {
     console.log(e.message)

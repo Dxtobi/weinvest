@@ -2,7 +2,7 @@ require("dotenv").config({ path: "./configuration.env" });
 require("dotenv").config()
 const path = require('path');
 const express = require("express");
-
+const nodemailer = require("nodemailer");
 const redirect = require("./routes/auth.js");
 const privateRouteRedirect = require("./routes/privateRoute.js");
 
@@ -19,8 +19,6 @@ connectDatabase();
 app.use(express.json());
 
 
-
-
 app.use("/api/auth", redirect);
 app.use("/api/private-route", privateRouteRedirect);
 if(process.env.NODE_ENV === 'production'){
@@ -34,8 +32,6 @@ app.get('*',(req, res) => {
 app.use(errorResponse);
 
 const PORT = process.env.PORT || 4000;
-
-
 
 const serverListeningPort = app.listen(PORT, () => {
   console.log(`Currently server is running at port ${PORT}`);
