@@ -12,7 +12,7 @@ const Navemenu = ({showMenu, logout}) => {
       <div className="nav-bar-div">
           <button onClick={showMenu} className='nav-bar-div-btn-close'>Close</button>
           <div className='nav-bar-div-sub'>
-              <span className='nav-bar-item'>Hello</span>
+              <span className='nav-bar-item'></span>
 
               <span className='nav-bar-divider'></span>
 

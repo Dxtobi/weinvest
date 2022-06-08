@@ -32,7 +32,7 @@ span.header_top_brand {
     left: 0;
     top: 0;
     display: flex;
-    width: 70%;
+    width: 90%;
     flex-direction: column;
     background: white;
     min-height: 100vh;

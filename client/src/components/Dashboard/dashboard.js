@@ -101,6 +101,7 @@ const Dashboard = () => {
                 <a href="/plans" className='db-select-plan'>Select a plan</a>
               </div>
           }
+          <small>withdraw are availabe after 48hr</small>
           <div className="db-recent">Recent Transactions</div>
           <div className="db-trans">
               {
