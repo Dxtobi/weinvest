@@ -30,7 +30,7 @@ export default function Footer() {
     <div className="footer_main">
       <div className='footer_nav'>
         {naves.map((e, i) => {
-          return (<Link key={i} className="footer_links_nave" to={e.link}>{e.text}</Link>)
+          return (<a key={i} target='_blank' rel="noreferrer" className="footer_links_nave" href={e.link}>{e.text}</a>)
           })}
       </div>
       <div className='footer_contact'>
