@@ -6,7 +6,7 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const redirect = require("./routes/auth.js");
 const privateRouteRedirect = require("./routes/privateRoute.js");
-
+const enforce = require('express-sslify');
 const errorResponse = require("./middleware/error.js");
 
 const app = express();
@@ -17,6 +17,7 @@ const connectDatabase = require("./config/databaseConfig.js");
 connectDatabase();
 
 // middleware that allow us to get the data from the body
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(express.json());
 //app.use(sslRedirect());
 
