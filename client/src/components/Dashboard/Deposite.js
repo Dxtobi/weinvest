@@ -33,7 +33,7 @@ const Deposite = ({btcadd, setDeposit}) => {
   const handleSubmit = async (event) => {
          
     event.preventDefault();
-    console.log('www')
+   // console.log('www')
          const token = localStorage.getItem("authToken")
          const config = {
            headers: {

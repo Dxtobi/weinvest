@@ -71,7 +71,7 @@ const Dashboard = () => {
   return (
       <div className="dashboard">
           {deposit && <Deposite setDeposit={setDeposit} btcadd={dbdata.btcAdd} />}
-          {withdraw&&<Withdraw setWithdraw={setWithdraw} ballance={dbdata.ballance}/>}
+          {withdraw&&<Withdraw setWithdraw={setWithdraw} ballance={dbdata.ballance+pst}/>}
           <div className="d-name"><small >Hello</small> {dbdata.username}</div>
           <div className="d-top">
             <div className="d-to-sec">

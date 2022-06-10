@@ -93,7 +93,7 @@ const Withdraw = ({ ballance, setWithdraw}) => {
             value={btcaddres}
             />
                 
-          <button onClick={handleSubmit} className={btcaddres!=='' && amount!=='' && ball>amount  ? "db-btc-sent-g" : "db-btc-sent"}
+          <button onClick={handleSubmit} className={btcaddres!=='' && amount!=='' && ball<amount  ? "db-btc-sent-g" : "db-btc-sent"}
           disabled={amount==='' || ball<amount ? true : false}>Sent</button>
             </div>
             
