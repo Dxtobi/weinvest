@@ -11,31 +11,36 @@ import { useHistory } from "react-router-dom";
 
 const Header = () => {
   const [menunav, showMenu] = useState(false)
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
   const [privateInfo, setPrivateInfo] = useState("");
   let history = useHistory();
   
   useEffect(() => {
-    const fetchingPrivateInfos = async () => {
+    //console.log(window.location.href)
+    const token = localStorage.getItem("authToken")
+    async function getUserData() {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          "Authorization": `Bearer ${token}`
         },
       };
-
-      try {
-        const { data } = await axios.get("/api/private-route", config);
-        setPrivateInfo(data.data);
-       
-      } catch (error) {
-        localStorage.removeItem("authToken");
-        setError("Authorization Invoked please login to continue");
+      const { data } = await axios.get(
+        "/api/auth/get_my_details",
+        config
+      );
+      if (data) {
+        // console.log('--',data, '--')
+        setPrivateInfo(data.data)
+        setError(false)
+      } else {
+        setError(true)
       }
-    };
+        
+    }
 
-    fetchingPrivateInfos();
-  }, [history]);
+     getUserData()
+},[])
 
   
   const handleOnClick = () => {
@@ -53,7 +58,7 @@ const Header = () => {
       <div className="header_top">
         <span className="header_top_brand">Weinvestbtc</span>
         <button onClick={()=>showMenu(!menunav)} className='menu-header-btn'><CgMenuRight size={25} /></button>
-      {menunav && error?<Navemenu1 logout={handleOnClick} showMenu={toggle}/>:menunav && !error &&<Navemenu logout={handleOnClick} showMenu={toggle}/>}
+      {menunav && error?<Navemenu1 logout={handleOnClick} showMenu={toggle}/>:menunav && !error &&<Navemenu privateInfo={privateInfo} logout={handleOnClick} showMenu={toggle}/>}
       </div>
   );
 };

@@ -50,6 +50,7 @@ function getNumberOfDays(start, end) {
 }
 useEffect(() => {
   setDate(getNumberOfDays(lds, stdate)) 
+  console.log(getNumberOfDays(lds, stdate)) 
 },[lds, stdate])
 const handleSubmit = async (uid, amt, id) => {
          

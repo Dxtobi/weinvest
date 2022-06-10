@@ -6,13 +6,14 @@ import { Link } from "react-router-dom";
 
 import "./header.css";
 
-const Navemenu = ({showMenu, logout}) => {
+const Navemenu = ({showMenu, logout, privateInfo}) => {
 
   return (
       <div className="nav-bar-div">
           <button onClick={showMenu} className='nav-bar-div-btn-close'>Close</button>
-          <div className='nav-bar-div-sub'>
-              <span className='nav-bar-item'></span>
+      <div className='nav-bar-div-sub'>
+      <span className='nav-bar-item'>Hello</span>
+        <h2 className='nav-bar-item'>{privateInfo.username }</h2>
 
               <span className='nav-bar-divider'></span>
 

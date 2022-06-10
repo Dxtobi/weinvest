@@ -13,6 +13,7 @@ exports.protect = async (req, res, next) => {
   }
 
   if (!token) {
+    console.log('not token')
     return next(new ErrorHandler("Not authorized to access this route", 401));
   }
 
@@ -22,6 +23,7 @@ exports.protect = async (req, res, next) => {
     const user = await User.findById(decoded.id);
 
     if (!user) {
+      console.log(404)
       return next(new ErrorHandler("No user found with this id", 404));
     }
 
@@ -29,6 +31,7 @@ exports.protect = async (req, res, next) => {
 
     next();
   } catch (err) {
+    console.log(err)
     return next(new ErrorHandler("Not authorized to access this router", 401));
   }
 };

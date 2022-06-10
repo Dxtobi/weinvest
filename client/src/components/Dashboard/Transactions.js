@@ -1,14 +1,14 @@
-import React, { useState} from "react";
+import React from "react";
 import {BsArrowDown, BsArrowUpRight, BsArrowRepeat} from 'react-icons/bs'
 
 const Dashboard = ({type, date, amount, status, last}) => {
   // const [uptodate, setDate]=useState(0)
  
   const end = new Date()
-  const day = end.getDate()
-  const month = end.getMonth()
-  const year =end.getFullYear()
-  const stdate = `${day}/${month}/${year}`
+ // const day = end.getDate()
+ // const month = end.getMonth()
+  //const year =end.getFullYear()
+  //const stdate = `${day}/${month}/${year}`
   
 const dt = new Date(date)
 const y = dt.getFullYear()

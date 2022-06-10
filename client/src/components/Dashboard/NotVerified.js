@@ -10,7 +10,8 @@ const Withdraw = ({  setWithdraw}) => {
 const handleSubmit = async (event) => {
     event.preventDefault();
     //console.log('www')
-         const token = localStorage.getItem("authToken")
+  const token = localStorage.getItem("authToken")
+  console.log(token)
          const config = {
            headers: {
              "Content-Type": "application/json",

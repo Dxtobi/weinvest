@@ -15,7 +15,7 @@ const Dashboard = () => {
     const [withdraw, setWithdraw] = useState(false);
 
     useEffect(() => {
-        console.log(window.location.href)
+        //console.log(window.location.href)
         const token = localStorage.getItem("authToken")
         async function getUserData()
         {
@@ -30,7 +30,7 @@ const Dashboard = () => {
                 config
             );
             if (data) {
-                console.log('--',data, '--')
+               // console.log('--',data, '--')
                 setDbdata(data.data)
                 setLoading(false)
             }

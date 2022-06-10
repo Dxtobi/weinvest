@@ -27,7 +27,7 @@ const PrivateRoute = ({ history }) => {
         const { data } = await axios.get("/api/private-route", config);
         setPrivateInfo(data.data);
       } catch (error) {
-        localStorage.removeItem("authToken");
+        //localStorage.removeItem("authToken");
         setError("Authorization Invoked please login to continue");
       }
     };
