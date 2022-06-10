@@ -1,6 +1,6 @@
 require("dotenv").config({ path: "./configuration.env" });
 require("dotenv").config()
-const sslRedirect = require("heroku-ssl-redirect");
+//const sslRedirect = require("heroku-ssl-redirect");
 const path = require('path');
 const express = require("express");
 const nodemailer = require("nodemailer");
@@ -18,7 +18,7 @@ connectDatabase();
 
 // middleware that allow us to get the data from the body
 app.use(express.json());
-app.use(sslRedirect());
+//app.use(sslRedirect());
 
 app.use("/api/auth", redirect);
 app.use("/api/private-route", privateRouteRedirect);
